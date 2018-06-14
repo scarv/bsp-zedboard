@@ -6,7 +6,7 @@ LIB_SRC         ?= $(shell find -name "*.c")
 LIB_OBJ         ?= $(addprefix $(BUILD_DIR)/,$(addsuffix .o,$(LIB_SRC)))
 LIB_STATIC      ?= $(BUILD_DIR)/libzrbbsp.a
 
-CFLAGS          += -fpic -O2
+CFLAGS          += -fpic -O2 -Wall
 
 
 all: $(LIB_STATIC)

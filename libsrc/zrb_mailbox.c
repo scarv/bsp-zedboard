@@ -73,7 +73,7 @@ uint8_t zrb_mailbox_recieve_buffer_empty_error (
 
 /*!
 */
-uint8_t zrb_mailbox_clear_send_buffer_full_error (
+void zrb_mailbox_clear_send_buffer_full_error (
     zrb_mailbox_t   mb
 ){
     mb[ZRB_MAILBOX_REG_ERROR] &= ~0x2;
@@ -82,7 +82,7 @@ uint8_t zrb_mailbox_clear_send_buffer_full_error (
 
 /*!
 */
-uint8_t zrb_mailbox_clear_recieve_buffer_empty_error (
+void zrb_mailbox_clear_recieve_buffer_empty_error (
     zrb_mailbox_t   mb
 ){
     mb[ZRB_MAILBOX_REG_ERROR] &= ~0x1;
