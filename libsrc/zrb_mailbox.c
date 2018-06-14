@@ -16,21 +16,21 @@ void zrb_mailbox_write (
 */
 void zrb_mailbox_read (
     zrb_mailbox_t   mb,
-    uint32_t       &recieved
+    uint32_t       *recieved
 ){
-    while(zrb_mailbox_recieve_buffer_empty()) {
+    while(zrb_mailbox_recieve_buffer_empty(mb)) {
         // Do nothing.
     }
-    recieved = mb[ZRB_MAILBOX_REG_RDATA];
+    *recieved = mb[ZRB_MAILBOX_REG_RDATA];
 }
 
 /*!
 */
 void zrb_mailbox_read_nb (
     zrb_mailbox_t   mb,
-    uint32_t       &recieved
+    uint32_t       *recieved
 ){
-    recieved = mb[ZRB_MAILBOX_REG_RDATA];
+    *recieved = mb[ZRB_MAILBOX_REG_RDATA];
 }
 
 

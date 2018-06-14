@@ -38,7 +38,7 @@ mailbox to read. Don't use it if you do not expect to read something!
 */
 void zrb_mailbox_read (
     zrb_mailbox_t   mb,
-    uint32_t       &recieved
+    uint32_t       *recieved
 );
 
 /*!
@@ -50,7 +50,7 @@ was empty when this function was called.
 */
 void zrb_mailbox_read_nb (
     zrb_mailbox_t   mb,
-    uint32_t       &recieved
+    uint32_t       *recieved
 );
 
 
