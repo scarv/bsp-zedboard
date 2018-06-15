@@ -13,6 +13,7 @@ MEMORY {
 
 SECTIONS {
     /* Base address of the shared BRAM */
+    .text : { *(.riscy_main) } > PL_BRAM
     .text : { *(.text) } > PL_BRAM
     .data : { *(.data) } > PL_BRAM
     .bss  : { *(.bss ) } > PL_BRAM
