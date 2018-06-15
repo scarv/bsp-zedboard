@@ -11,14 +11,11 @@ characters from the mailbox, and returns "Hello X!" where X is that string.
 
 #define RECV_BUF_LEN 20
 
-void _start() {
-    riscy_main();
-}
 
 /*!
 @brief Entry point for the program
 */
-int riscy_main () {
+void riscy_main () {
     
     // Buffer for recieving data from the mailbox FIFO.
     char recv_buf[RECV_BUF_LEN];
