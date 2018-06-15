@@ -5,8 +5,10 @@ INC_DIR         ?= ../../libsrc
 
 APP_SRC         ?= $(shell find -name "*.c")
 APP_OBJ         ?= $(addprefix $(BUILD_DIR)/,$(addsuffix .o,$(APP_SRC)))
-APP_EXE         ?= $(BUILD_DIR)/app_helloworld
-APP_DISASM      ?= $(APP_EXE).dis
+APP_ELF         ?= $(BUILD_DIR)/app_helloworld.elf
+APP_BIN         ?= $(BUILD_DIR)/app_helloworld.bin
+APP_HEX         ?= $(BUILD_DIR)/app_helloworld.hex
+APP_DISASM      ?= $(APP_ELF).dis
 
 BSP_LIB         ?= $(BUILD_DIR)/libzrbbsp.a
 
@@ -17,12 +19,18 @@ LDSCRIPT        ?= ../ldscript.ld
 
 LDFLAGS         += -T$(LDSCRIPT)
 
-all: $(APP_EXE) $(APP_DISASM)
+all: $(APP_BIN) $(APP_DISASM) $(APP_HEX) $(APP_ELF)
 
-$(APP_DISASM) : $(APP_EXE)
+$(APP_DISASM) : $(APP_ELF)
 	$(OBJDUMP) -Dt $< > $@
 
-$(APP_EXE) : $(APP_OBJ)
+$(APP_BIN) : $(APP_ELF)
+	$(OBJCOPY) -O binary $< $@
+
+$(APP_HEX) : $(APP_BIN)
+	hexdump -x $< > $@
+
+$(APP_ELF) : $(APP_OBJ)
 	$(CC) $(CFLAGS) -o $@ $^ $(BSP_LIB) $(LDFLAGS)
 
 $(BUILD_DIR)/%.c.o : $(SRC_DIR)/%.c

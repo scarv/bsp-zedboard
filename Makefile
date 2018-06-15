@@ -7,6 +7,7 @@ export CC = $(RISCV)/bin/riscv64-unknown-elf-gcc
 export LD = $(RISCV)/bin/riscv64-unknown-elf-ld
 export AR = $(RISCV)/bin/riscv64-unknown-elf-ar
 export OBJDUMP = $(RISCV)/bin/riscv64-unknown-elf-objdump
+export OBJCOPY = $(RISCV)/bin/riscv64-unknown-elf-objcopy
 
 export CFLAGS += -march=rv32im -mabi=ilp32
 
