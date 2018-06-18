@@ -24,7 +24,7 @@ void send_buffer(
     char *          buf,
     uint32_t        len
 ) {
-    for(int i = 0; i < len; i ++) {
+/*    for(int i = 0; i < len; i ++) {
 
         if(buf[i] == '\0') continue;
         
@@ -35,7 +35,7 @@ void send_buffer(
         uint32_t to_send = ((uint32_t)buf[i] & 0xFF);
         
         zrb_mailbox_write(mailbox, to_send);
-    }
+    }*/
 }
 
 /*!
@@ -44,19 +44,26 @@ void send_buffer(
 that it appears first in the output binary we generate. Otherwise, the
 program will start executing at some other random function.
 */
-__attribute__ (( section(".riscy_main")))
 void riscy_main () {
     
     // Buffer for recieving data from the mailbox FIFO.
-    char recv_buf[RECV_BUF_LEN];
+    //char recv_buf[RECV_BUF_LEN];
 
-    char resp_buf [] = "Hello ";
+    //char resp_buf [] = "Hello ";
 
-    uint32_t recieved;
+    //uint32_t recieved;
     
     // Handle to the mailbox FIFO
     zrb_mailbox_t mailbox = ZRB_RISCY_MAILBOX_BASE;
 
+    uint32_t * ptr = (uint32_t*)0xC00000e0;
+
+    // FIXME
+    while(1) {
+        zrb_mailbox_write(mailbox, (uint32_t)"abcd");
+        *ptr = (*ptr) + 1;
+    }
+/*
     // Start with a "Hello World!";
     char helloworld [] = "Hello World!";
     send_buffer(mailbox, helloworld, sizeof(helloworld));
@@ -86,4 +93,23 @@ void riscy_main () {
         // Make our greeting personal...
         send_buffer(mailbox, recv_buf, RECV_BUF_LEN);
     }
+*/
+}
+
+
+/*!
+@brief Handles all illegal instruction exceptions.
+*/
+void riscy_illegal_instr_delegated_handler () {
+    // Do nothing.
+    return;
+}
+
+
+/*!
+@brief Handles environment (sycall) exceptions.
+*/
+void riscy_ecall_delegated_handler () {
+    // Do nothing.
+    return;
 }

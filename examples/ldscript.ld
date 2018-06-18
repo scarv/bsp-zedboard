@@ -12,8 +12,16 @@ MEMORY {
 }
 
 SECTIONS {
-    /* Base address of the shared BRAM */
-    .text : { *(.riscy_main) } > PL_BRAM
+    /* Trampoline for getting to the reset handler */
+    .text 0xC0000080 : { *(.text.riscy_reset) } > PL_BRAM
+
+    /* Trampoline for getting to the illegal instruction handler */
+    .text 0xC0000084 : { *(.text.riscy_illegal_instr) } > PL_BRAM
+
+    /* Trampoline for getting to the environment call handler */
+    .text 0xC0000088 : { *(.text.riscy_ecall) } > PL_BRAM
+
+    /* The rest of the program code goes here */
     .text : { *(.text) } > PL_BRAM
     .data : { *(.data) } > PL_BRAM
     .bss  : { *(.bss ) } > PL_BRAM
