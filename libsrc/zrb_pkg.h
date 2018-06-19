@@ -12,8 +12,6 @@ other files needed to write BSP related code.
 #define ZRB_PKG_H
 
 #include "zrb_common.h"
-#include "zrb_mailbox.h"
 #include "zrb_default_handlers.h"
-#include "zrb_shared_mem.h"
 
 #endif

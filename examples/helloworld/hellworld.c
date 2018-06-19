@@ -27,10 +27,9 @@ program will start executing at some other random function.
 */
 void riscy_main () {
 
+    count = blen;
+
     while(1) {
-
-        count = blen;
-
         for(int i = 0; i < blen; i ++){
             while(valid) {
                 // Do nothing, wait for reciever 
