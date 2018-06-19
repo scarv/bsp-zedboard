@@ -11,7 +11,8 @@ characters from the mailbox, and returns "Hello X!" where X is that string.
 
 #define RECV_BUF_LEN 20
 
-static volatile uint32_t     sword;
+static volatile uint32_t       sword;
+static zrb_shared_mem_char_t   schar;
 
 /*!
 @brief Entry point for the program
@@ -21,8 +22,12 @@ program will start executing at some other random function.
 */
 void riscy_main () {
 
+    const char buffer [] = "Hello World!";
+    uint8_t    blen      = sizeof(buffer);
+
     for(int i = 0; i < 0x8000000; i ++) {
         sword = sword ^ (sword + 1);
+        zrb_shared_mem_write_char(&schar, buffer[i%blen]);
     }
 }
 
