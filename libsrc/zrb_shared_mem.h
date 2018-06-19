@@ -15,6 +15,7 @@ typedef struct {
     volatile uint8_t valid;  //! Set to non-zero when data is valid.
     volatile uint8_t ready;  //! Set to non-zero when data recieved.
     volatile uint8_t data;   //! The data to be transmitted.
+    volatile uint8_t count;  //! Number of items left to transfer.
 } zrb_shared_mem_char_t;
 
 

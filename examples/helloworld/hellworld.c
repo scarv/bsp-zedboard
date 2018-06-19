@@ -11,8 +11,13 @@ characters from the mailbox, and returns "Hello X!" where X is that string.
 
 #define RECV_BUF_LEN 20
 
-static volatile uint32_t       sword;
-static zrb_shared_mem_char_t   schar;
+static volatile uint8_t valid;  //! Set to non-zero when data is valid.
+static volatile uint8_t ready;  //! Set to non-zero when data recieved.
+static volatile uint8_t data;   //! The data to be transmitted.
+static volatile uint8_t count;  //! Number of items left to transfer.
+
+const char buffer [] = "Hello World!";
+uint8_t    blen      = sizeof(buffer);
 
 /*!
 @brief Entry point for the program
@@ -22,12 +27,19 @@ program will start executing at some other random function.
 */
 void riscy_main () {
 
-    const char buffer [] = "Hello World!";
-    uint8_t    blen      = sizeof(buffer);
+    while(1) {
 
-    for(int i = 0; i < 0x8000000; i ++) {
-        sword = sword ^ (sword + 1);
-        zrb_shared_mem_write_char(&schar, buffer[i%blen]);
+        count = blen;
+
+        for(int i = 0; i < blen; i ++){
+            while(valid) {
+                // Do nothing, wait for reciever 
+            }
+            data = buffer[i];
+            ready = 0;
+            valid = 1;
+            count --;
+        }
     }
 }
 
