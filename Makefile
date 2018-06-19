@@ -23,3 +23,7 @@ library:
 .PHONY: examples
 examples: library
 	$(MAKE) -C ./examples
+
+.PHONY: clean
+clean:
+	rm -f $(BUILD_DIR)/*
