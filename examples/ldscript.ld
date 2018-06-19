@@ -13,13 +13,13 @@ MEMORY {
 
 SECTIONS {
     /* Trampoline for getting to the reset handler */
-    .text 0xC0000080 : { *(.text.riscy_reset) } > PL_BRAM
+    .text 0xC0000000 : { *(.text.riscy_reset) } > PL_BRAM
 
     /* Trampoline for getting to the illegal instruction handler */
-    .text 0xC0000084 : { *(.text.riscy_illegal_instr) } > PL_BRAM
+    .text 0xC0000004 : { *(.text.riscy_illegal_instr) } > PL_BRAM
 
     /* Trampoline for getting to the environment call handler */
-    .text 0xC0000088 : { *(.text.riscy_ecall) } > PL_BRAM
+    .text 0xC0000008 : { *(.text.riscy_ecall) } > PL_BRAM
 
     /* The rest of the program code goes here */
     .text : { *(.text) } > PL_BRAM

@@ -17,7 +17,7 @@ static volatile uint32_t * ZRB_RISCY_MAILBOX_BASE  = (uint32_t*)0x20000000;
 static volatile uint32_t * ZRB_RISCY_BRAM_BASE     = (uint32_t*)0xC0000000;
 
 //! Size of the BRAM memory shared with the ARM core.
-static volatile uint32_t   ZRB_RISCY_BRAM_SIZE     = 0x00001FFF;
+static volatile uint32_t   ZRB_RISCY_BRAM_SIZE     = 0x00003FFF;
 
 #endif
 
