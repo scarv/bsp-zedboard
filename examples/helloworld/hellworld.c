@@ -16,16 +16,14 @@ static volatile uint8_t ready;  //! Set to non-zero when data recieved.
 static volatile uint8_t data;   //! The data to be transmitted.
 static volatile uint8_t count;  //! Number of items left to transfer.
 
-const char buffer [] = "Hello World!";
+const char buffer [] = "Hello Zedboard!";
 uint8_t    blen      = sizeof(buffer);
 
 /*!
-@brief Entry point for the program
-@note This function must have it's program section set to ".riscy_main" so
-that it appears first in the output binary we generate. Otherwise, the
-program will start executing at some other random function.
+@brief Entry point for the program.
+@details Jumped too from riscv_reset_handler in boot.S
 */
-void riscy_main () {
+void riscv_main() {
 
     count = blen;
 
@@ -44,18 +42,10 @@ void riscy_main () {
 
 
 /*!
-@brief Handles all illegal instruction exceptions.
+@brief Responsible for handling all interrupts.
+@details Jumped too from riscv_irq_handler in boot.S
 */
-void riscy_illegal_instr_delegated_handler () {
-    // Do nothing.
-    return;
-}
-
-
-/*!
-@brief Handles environment (sycall) exceptions.
-*/
-void riscy_ecall_delegated_handler () {
+void riscv_irq_delegated_handler() {
     // Do nothing.
     return;
 }

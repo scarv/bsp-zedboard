@@ -5,17 +5,13 @@
 */
 
 .section .text
-.section .text.riscy_reset
-riscy_reset_vector_landing:
-    j riscy_reset_handler
+.section .text.riscv_reset
+riscv_reset_vector_landing:
+    j riscv_reset_handler
 
-.section .text.riscy_illegal_instr
-riscy_illegal_instr_vector_landing:
-    j riscy_illegal_instr_handler
-
-.section .text.riscy_ecall
-riscy_ecall_vector_landing:
-    j riscy_ecall_handler
+.section .text.riscv_irq_handler
+riscv_irq_vector_landing:
+    j riscv_irq_handler
 
 /* ------------------------------------------------------------*/
 
@@ -24,8 +20,8 @@ riscy_ecall_vector_landing:
 //
 // Whenever the core is reset, we end up here from riscy_reset_vector_landing
 //
-.global riscy_reset_handler
-riscy_reset_handler:
+.global riscv_reset_handler
+riscv_reset_handler:
 
     // Zero all of the registers
     mv  x1 , x0
@@ -61,24 +57,21 @@ riscy_reset_handler:
     mv  x31, x0
     
     // Setup the stack pointer to the top of the shared memory.
-    li  sp, 0xC0001FFC
+    li  sp, 0xC0007FFC
     
     // Jump to main.
-    j   riscy_main
-
-
-//
-// We land here after any illegal instruction
-//
-.global riscy_illegal_instr_handler
-riscy_illegal_instr_handler:
-    j   riscy_illegal_instr_delegated_handler
+    j   riscv_main
 
 
 //
 // We land here after any environment call
 //
-.global riscy_ecall_handler
-riscy_ecall_handler:
-    j   riscy_ecall_delegated_handler
+.global riscv_irq_handler
+riscv_irq_handler:
+    sw    ra,4(sp)                      // Push current return address
+    addi  sp, sp, 0x4                   // to the stack before call.
+
+    call  riscv_irq_delegated_handler   // Jump to the delegated handler.
+
+    mret
 
