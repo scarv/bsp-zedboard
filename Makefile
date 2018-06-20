@@ -14,6 +14,9 @@ export CFLAGS += -march=rv32im -mabi=ilp32
 export BUILD_DIR = $(shell pwd)/build
 export BSP_LIB   = $(BUILD_DIR)/libzrbbsp.a
 
+PORT    ?= /dev/ttyACM0
+BINARY  ?= ./build/app_helloworld.bin
+
 all: library examples
 
 .PHONY: library
@@ -27,3 +30,11 @@ examples: library
 .PHONY: clean
 clean:
 	rm -f $(BUILD_DIR)/*
+
+upload: examples
+	./tools/upload.py --port $(PORT) set-reset
+	./tools/upload.py --port $(PORT) upload $(BINARY)
+	./tools/upload.py --port $(PORT) clear-reset
+	./tools/upload.py --port $(PORT) read-buffer
+
+
