@@ -34,7 +34,9 @@ clean:
 upload: examples
 	./tools/upload.py --port $(PORT) set-reset
 	./tools/upload.py --port $(PORT) upload $(BINARY)
-	./tools/upload.py --port $(PORT) clear-reset
+	./tools/upload.py --port $(PORT) clear-reset --stdout
+
+readbuf:
 	./tools/upload.py --port $(PORT) read-buffer
 
 

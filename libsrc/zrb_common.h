@@ -19,5 +19,11 @@ static volatile uint32_t * ZRB_BRAM_BASE     = (uint32_t*)0xC0000000;
 //! Size of the BRAM memory shared with the ARM core.
 static volatile uint32_t   ZRB_BRAM_SIZE     = 0x00007FFF;
 
+//! Base address of the PS/PL uart core registers.
+static volatile uint32_t * const ZRB_UART_BASE   = (uint32_t*)0xE0001000;
+static volatile uint32_t * const ZRB_UART_CTRL   = (uint32_t*)0xE0001000;
+static volatile uint32_t * const ZRB_UART_STATUS = (uint32_t*)0xE000102C;
+static volatile uint32_t * const ZRB_UART_FIFO   = (uint32_t*)0xE0001030;
+
 #endif
 

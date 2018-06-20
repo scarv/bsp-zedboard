@@ -13,5 +13,6 @@ other files needed to write BSP related code.
 
 #include "zrb_common.h"
 #include "zrb_default_handlers.h"
+#include "zrb_print.h"
 
 #endif

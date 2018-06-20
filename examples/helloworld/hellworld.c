@@ -11,13 +11,8 @@ characters from the mailbox, and returns "Hello X!" where X is that string.
 
 #define RECV_BUF_LEN 20
 
-static volatile uint8_t valid;  //! Set to non-zero when data is valid.
-static volatile uint8_t ready;  //! Set to non-zero when data recieved.
-static volatile uint8_t data;   //! The data to be transmitted.
-static volatile uint8_t count;  //! Number of items left to transfer.
-
-const char buffer [] = "Hello Zedboard!";
-uint8_t    blen      = sizeof(buffer);
+const char buffer2[] = "Hello World!\n";
+uint16_t   blen2     = sizeof(buffer2);
 
 /*!
 @brief Entry point for the program.
@@ -25,18 +20,11 @@ uint8_t    blen      = sizeof(buffer);
 */
 void riscv_main() {
 
-    count = blen;
+    uint32_t * gpio = (uint32_t*)0x20001000;
+    *gpio = 0xF;
 
-    while(1) {
-        for(int i = 0; i < blen; i ++){
-            while(valid) {
-                // Do nothing, wait for reciever 
-            }
-            data = buffer[i];
-            ready = 0;
-            valid = 1;
-            count --;
-        }
+    for(int i = 0; i < 10; i ++) {
+        zrb_print(buffer2,blen2);
     }
 }
 

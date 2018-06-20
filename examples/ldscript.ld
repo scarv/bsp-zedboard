@@ -1,6 +1,6 @@
 
 /* Entry point / "main" function for the target program */
-ENTRY(riscy_main)
+ENTRY(riscv_main)
 
 /* Valid physical memory regions which can be used by the linker */
 MEMORY {
