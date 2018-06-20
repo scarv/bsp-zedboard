@@ -1,0 +1,7 @@
+//arch = zynq; split = false; format = BIN
+the_ROM_image:
+{
+	[bootloader]/home/ben/vivado/zedboard_helloworld/zedboard_helloworld.sdk/ZB_FSBL/Debug/ZB_FSBL.elf
+	/home/ben/vivado/zedboard_helloworld/zedboard_helloworld.sdk/system_top_wrapper_hw_platform_0/system_top_wrapper.bit
+	/home/ben/vivado/zedboard_helloworld/zedboard_helloworld.sdk/HelloWorld/Debug/HelloWorld.elf
+}
